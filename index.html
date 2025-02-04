@@ -1,205 +1,269 @@
+<html>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        perspective: 1000px;
-        transform-style: preserve-3d;
-        position: relative;
-        background-color: #111;
-        font-family: "Montserrat", sans-serif;
-    }
-    
-    .container {
-        width: 80%; /* Adjusted to 60% of the screen width */
-        max-width: 90%; /* Ensures it doesn't exceed 90% on larger screens */
-        min-height: 80vh; /* Adjusted to 60% of the viewport height */
-        border-radius: 20px;
-        position: relative;
-        transition: 1.5s ease-in-out;
-        transform-style: preserve-3d;
-    }
-    
-    .side {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding: 20px;
-        color: #fff;
-        transform-style: preserve-3d;
-        backface-visibility: hidden;
-        border-radius: 20px;
-        overflow: hidden; /* Ensures content stays inside the container */
-    }
-    
-    .content {
-        transform: translateZ(70px) scale(0.8);
-        line-height: 1.6; /* Increased line height for better readability */
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    
-    .content h1 {
-        position: relative;
-        font-size: 2.5rem; /* Increased font size */
-        margin-bottom: 1.5rem;
-    }
-    
-    .content h1:before {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        height: 3px;
-        background-color: #3e3;
-        width: 50px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .message {
-        max-height: calc(100% - 60px); /* Adjust height to fit within the container */
-        overflow-y: auto; /* Adds scrollbar if content overflows */
-        padding-right: 10px; /* Prevents scrollbar overlap */
-    }
-    
-    .message p {
-        margin: 1.5rem 0; /* Increased margin for better spacing */
-        font-size: 1.8rem; /* Increased font size */
-        line-height: 1.8; /* Increased line height for better readability */
-    }
-    
-    .front {
-        z-index: 2;
-        background-size: cover;
-        background-image: url(https://userscontent2.emaze.com/images/f9538183-0ff9-478f-b964-c8ab90421e3b/3d28e192fda5c17250f96a2779c84475.jpg);
-    }
-    
-    .back {
-        background-color: #333;
-        transform: rotateY(180deg);
-        background-image: url(https://userscontent2.emaze.com/images/f9538183-0ff9-478f-b964-c8ab90421e3b/3d28e192fda5c17250f96a2779c84475.jpg);
-        background-size: cover;
-    }
-    
-    .container:hover {
-        transform: rotateY(180deg);
-    }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-        .container {
-            width: 80%; /* Adjusted for smaller screens */
-            min-height: 80vh; /* Adjusted for smaller screens */
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystical Fortune Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 20px;
         }
-    
-        .content h1 {
-            font-size: 2.4rem; /* Adjusted font size for smaller screens */
-            margin-bottom: 1rem;
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            margin: 15px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            cursor: pointer;
         }
-    
-        .message p {
-            font-size: 1rem; /* Adjusted font size for smaller screens */
-            line-height: 1.6;
-            margin: 1rem 0;
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-    
-        .content {
-            transform: translateZ(70px) scale(0.75);
+
+        .name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
-    }
-    
-    @media (max-width: 480px) {
-        .container {
-            width: 80%; /* Adjusted for mobile screens */
-            min-height: 40vh; /* Adjusted for mobile screens */
+
+        .symbols {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
         }
-    
-        .content h1 {
-            font-size: 2.4rem; /* Adjusted font size for mobile screens */
-            margin-bottom: 0.8rem;
+
+        .symbol {
+            font-size: 2em;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
         }
-    
-        .message p {
-            font-size: 1.8 rem; /* Adjusted font size for mobile screens */
-            line-height: 1.5;
-            margin: 0.8rem 0;
+
+        .symbol:hover {
+            transform: scale(1.2);
         }
-    
-        .side {
-            padding: 15px;
+
+        .fortune {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 15px;
         }
-    
-        .content {
-            transform: translateZ(70px) scale(0.7);
+
+        /* Background color change on hover for each card */
+        .card:nth-child(odd):hover {
+            background-color: #f0e68c;
         }
-    }
-    
-    /* Scrollbar Styling */
-    .message::-webkit-scrollbar {
-        width: 5px;
-    }
-    
-    .message::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.1);
-    }
-    
-    .message::-webkit-scrollbar-thumb {
-        background: #3e3;
-        border-radius: 5px;
-    }
-    
-    .white-mode {
-        text-decoration: none;
-        padding: 7px 10px;
-        background-color: #122;
-        border-radius: 3px;
-        color: #fff;
-        transition: 0.35s ease-in-out;
-        position: fixed;
-        left: 15px;
-        bottom: 15px;
-        font-family: "Montserrat", sans-serif;
-    }
-    
-    .white-mode:hover {
-        background-color: #fff;
-        color: #122;
-    }
+
+        .card:nth-child(even):hover {
+            background-color: #e0ffff;
+        }
+
+        /* Animation for loading effect */
+        .card {
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        /* ...continue for the rest of the cards... */
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
-<div class="container">
-	<div class="front side">
-		<div class="content">
-			 <h1>Goodbye, Team! <span class="emoji">👋</span></h1>
-			  <p class="fade-in">Thank you for the wonderful memories!</p>
-		</div>
-	</div>
-	<div class="back side">
-		<div class="content">
-		 <h2>A Heartfelt Goodbye and Thank You</h2>
-	 <div class="message">
-                    <p><strong>Dear Team,</strong></p>
-                    <p>Today marks my last working day at INFOLOB, and as I prepare to move on, I find myself filled with mixed emotions. While I’m excited about the new journey ahead, I’m also deeply saddened to leave behind such an incredible team.</p>
-                    <p>The past two years have been nothing short of amazing. INFOLOB has given me a wonderful platform to grow, learn, and contribute, and for that, I will always be grateful. This organization has not only shaped me professionally but also allowed me to build relationships that I will cherish forever.</p>
-                    <p><strong>To my colleagues</strong>, thank you for making every day at work so memorable. Your support, camaraderie, and encouragement have meant the world to me. I’m going to miss the laughter, the collaboration, and the shared moments of success.
-                    </p>
-                    <p><strong>A special shoutout to Afsur</strong> – you’ve been more than just a colleague. You’ve been a true friend and a pillar of support in every aspect. Working alongside you has been an absolute pleasure, and I’ll always be grateful for your guidance and kindness.</p>
-                    <p>As I move on, I carry with me the lessons I’ve learned, the memories we’ve created, and the friendships I’ve built. Please stay in touch. Let’s not let this be a goodbye but a “see you later.”
-                    </p>
-                    <p>Thank you, INFOLOB, for everything. And thank you, team, for being such an integral part of my journey. Wishing you all continued success and happiness!
-                    </p>
-                    <p><strong>With heartfelt gratitude,</strong><br>Mohiddin Moghal</p>
-                </div>
-		</div>
-	</div>
+</head>
 
-</div>
+<body>
+
+    <!-- Afsur's Card -->
+    <div class="card">
+        <div class="name">Afsur</div>
+        <div class="symbols">
+            <div class="symbol">🌙</div>
+            <div class="symbol">⚡</div>
+        </div>
+        <p class="fortune">The stars align to bring unexpected opportunities</p>
+    </div>
+
+    <!-- Uday's Card -->
+    <div class="card">
+        <div class="name">Uday</div>
+        <div class="symbols">
+            <div class="symbol">🔥</div>
+            <div class="symbol">🌊</div>
+        </div>
+        <p class="fortune">New beginnings emerge from the ashes of the past</p>
+    </div>
+
+    <!-- Vasanthi's Card -->
+    <div class="card">
+        <div class="name">Vasanthi</div>
+        <div class="symbols">
+            <div class="symbol">🌸</div>
+            <div class="symbol">🌿</div>
+        </div>
+        <p class="fortune">Creativity blossoms like spring flowers</p>
+    </div>
+
+    <!-- Mani's Card -->
+    <div class="card">
+        <div class="name">Mani</div>
+        <div class="symbols">
+            <div class="symbol">💎</div>
+            <div class="symbol">🌌</div>
+        </div>
+        <p class="fortune">Hidden treasures reveal themselves in darkness</p>
+    </div>
+
+    <!-- Murugan's Card -->
+    <div class="card">
+        <div class="name">Murugan</div>
+        <div class="symbols">
+            <div class="symbol">🛡️</div>
+            <div class="symbol">⚔️</div>
+        </div>
+        <p class="fortune">Strength and wisdom conquer all obstacles</p>
+    </div>
+
+    <!-- Kavya's Card -->
+    <div class="card">
+        <div class="name">Kavya</div>
+        <div class="symbols">
+            <div class="symbol">❤️</div>
+            <div class="symbol">🎭</div>
+        </div>
+        <p class="fortune">Love's mystery unfolds in unexpected ways</p>
+    </div>
+
+    <!-- Rajendra's Card -->
+    <div class="card">
+        <div class="name">Rajendra</div>
+        <div class="symbols">
+            <div class="symbol">💰</div>
+            <div class="symbol">📈</div>
+        </div>
+        <p class="fortune">Prosperity flows like a mighty river</p>
+    </div>
+
+    <!-- Pavan's Card -->
+    <div class="card">
+        <div class="name">Pavan</div>
+        <div class="symbols">
+            <div class="symbol">🌪️</div>
+            <div class="symbol">🌄</div>
+        </div>
+        <p class="fortune">Winds of change bring fresh perspectives</p>
+    </div>
+
+    <!-- Pranitha's Card -->
+    <div class="card">
+        <div class="name">Pranitha</div>
+        <div class="symbols">
+            <div class="symbol">👑</div>
+            <div class="symbol">🗝️</div>
+        </div>
+        <p class="fortune">Leadership qualities shine bright this season</p>
+    </div>
+
+    <!-- Kishore's Card -->
+    <div class="card">
+        <div class="name">Kishore</div>
+        <div class="symbols">
+            <div class="symbol">🎨</div>
+            <div class="symbol">🕵️</div>
+        </div>
+        <p class="fortune">Hidden talents emerge from the shadows</p>
+    </div>
+
+    <!-- Yashaswini's Card -->
+    <div class="card">
+        <div class="name">Yashaswini</div>
+        <div class="symbols">
+            <div class="symbol">☯️</div>
+            <div class="symbol">🕊️</div>
+        </div>
+        <p class="fortune">Balance and harmony bring inner peace</p>
+    </div>
+
+    <!-- Roshan's Card -->
+    <div class="card">
+        <div class="name">Roshan</div>
+        <div class="symbols">
+            <div class="symbol">🌅</div>
+            <div class="symbol">🎉</div>
+        </div>
+        <p class="fortune">New dawn brings joyful celebrations</p>
+    </div>
+
+    <!-- Balaji's Card -->
+    <div class="card">
+        <div class="name">Balaji</div>
+        <div class="symbols">
+            <div class="symbol">🏆</div>
+            <div class="symbol">🦁</div>
+        </div>
+        <p class="fortune">Perseverance leads to glorious victory</p>
+    </div>
+
+    <!-- Varma's Card -->
+    <div class="card">
+        <div class="name">Varma</div>
+        <div class="symbols">
+            <div class="symbol">🔧</div>
+            <div class="symbol">🎯</div>
+        </div>
+        <p class="fortune">Practical solutions hit the target perfectly</p>
+    </div>
+
+    <!-- Chandana's Card -->
+    <div class="card">
+        <div class="name">Chandana</div>
+        <div class="symbols">
+            <div class="symbol">🎨</div>
+            <div class="symbol">✨</div>
+        </div>
+        <p class="fortune">Artistic visions manifest into reality</p>
+    </div>
+
+    <!-- Bhanusri's Card -->
+    <div class="card">
+        <div class="name">Bhanusri</div>
+        <div class="symbols">
+            <div class="symbol">👥</div>
+            <div class="symbol">🌉</div>
+        </div>
+        <p class="fortune">New connections bridge distant worlds</p>
+    </div>
+
+</body>
+
+</html>
