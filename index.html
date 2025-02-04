@@ -36,7 +36,7 @@ body {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     border-radius: 20px;
-    overflow: hidden; /* Prevents content from overflowing */
+    overflow: hidden; /* Ensures content stays inside the container */
 }
 
 .content {
@@ -66,9 +66,9 @@ body {
 }
 
 .message {
-    max-height: calc(100% - 60px); /* Reserve space for heading */
-    overflow-y: auto;
-    padding-right: 10px; /* Avoid scrollbar overlap */
+    max-height: calc(100% - 60px); /* Adjust height to fit within the container */
+    overflow-y: auto; /* Adds scrollbar if content overflows */
+    padding-right: 10px; /* Prevents scrollbar overlap */
 }
 
 .message p {
@@ -106,7 +106,7 @@ body {
     }
 
     .message p {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
         line-height: 1.5;
         margin: 0.8rem 0;
     }
@@ -147,7 +147,7 @@ body {
 }
 
 .message::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .message::-webkit-scrollbar-thumb {
@@ -185,10 +185,14 @@ body {
 	 <div class="message">
                     <p><strong>Dear Team,</strong></p>
                     <p>Today marks my last working day at INFOLOB, and as I prepare to move on, I find myself filled with mixed emotions. While I’m excited about the new journey ahead, I’m also deeply saddened to leave behind such an incredible team.</p>
-                    <p>The past two years have been nothing short of amazing. INFOLOB has given me a wonderful platform to grow, learn, and contribute, and for that, I will always be grateful.</p>
-                    <p><strong>To my colleagues</strong>, thank you for making every day at work so memorable. I’m going to miss the laughter, the collaboration, and the shared moments of success.</p>
-                    <p><strong>A special shoutout to Afsur</strong> – you’ve been more than just a colleague. You’ve been a true friend and a pillar of support in every aspect.</p>
-                    <p>As I move on, I carry with me the lessons I’ve learned and the friendships I’ve built. Let’s not let this be a goodbye but a “see you later.”</p>
+                    <p>The past two years have been nothing short of amazing. INFOLOB has given me a wonderful platform to grow, learn, and contribute, and for that, I will always be grateful. This organization has not only shaped me professionally but also allowed me to build relationships that I will cherish forever.</p>
+                    <p><strong>To my colleagues</strong>, thank you for making every day at work so memorable. Your support, camaraderie, and encouragement have meant the world to me. I’m going to miss the laughter, the collaboration, and the shared moments of success.
+                    </p>
+                    <p><strong>A special shoutout to Afsur</strong> – you’ve been more than just a colleague. You’ve been a true friend and a pillar of support in every aspect. Working alongside you has been an absolute pleasure, and I’ll always be grateful for your guidance and kindness.</p>
+                    <p>As I move on, I carry with me the lessons I’ve learned, the memories we’ve created, and the friendships I’ve built. Please stay in touch. Let’s not let this be a goodbye but a “see you later.”
+                    </p>
+                    <p>Thank you, INFOLOB, for everything. And thank you, team, for being such an integral part of my journey. Wishing you all continued success and happiness!
+                    </p>
                     <p><strong>With heartfelt gratitude,</strong><br>Mohiddin Moghal</p>
                 </div>
 		</div>
